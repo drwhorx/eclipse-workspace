@@ -1,0 +1,49 @@
+import java.awt.*;
+import java.util.Formatter;
+import javax.swing.*;
+
+public class Ball extends JPanel {
+	private double x, y;
+	private double vx, vy;
+	private double ay = 100;
+	private int width = 1280;
+	private int height = 720;
+	private int diam = 20;
+	private double rate = 30;
+
+	public Ball(int x0, int y0, double v0x, double v0y) {
+		this.x = x0;
+		this.y = height - y0;
+		this.vx = v0x;
+		this.vy = -v0y;
+		Thread thread = new Thread() {
+			public void run() {
+				while (true) {
+					if (x >= (width - diam) || x <= 0) {
+						vx = -1 * vx;
+					}
+					if (y >= (height - diam)) {
+						vy = -0.6 * vy;
+					} else {
+						vy = vy + (ay * (1 / rate));
+					}
+					x += (vx * (1 / rate));
+					y += (vy * (1 / rate));
+					System.out.println(x + ", " + y);
+					repaint();
+					try {
+						Thread.sleep((long)(1000 / rate));
+					} catch (InterruptedException ex) {
+					}
+				}
+			}
+		};
+		thread.start();
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(Color.BLUE);
+		g.fillOval((int)x, (int)y, 20, 20);
+	}
+}

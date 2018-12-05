@@ -1,0 +1,11 @@
+import java.util.*;
+public class TaxCalculator {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("I am the tax calculator 2000, are you married? (Y/N)");
+		boolean married = scan.nextBoolean();
+		System.out.println("What is your income?");
+		double income = scan.nextDouble();
+		System.out.println(married);
+	}
+}

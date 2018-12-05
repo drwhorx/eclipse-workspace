@@ -1,0 +1,56 @@
+import java.awt.*;
+import java.util.Formatter;
+import javax.swing.*;
+
+public class BallHandler extends JPanel {
+	private java.util.List<Ball> shapes = new java.util.ArrayList<Ball>();
+
+	public BallHandler() {
+		Thread thread = new Thread() {
+			public void run() {
+				while (true) {
+					for (Ball s : shapes) {
+						if (s.x >= (s.width - s.diam) || s.x <= 0) {
+							s.v.vx = -1 * s.v.vx;
+						}
+						if (s.y >= (s.height - (2 * s.diam))
+								|| (s.y + (s.v.vy * (1.0 / 60))) >= (s.height - (2 * s.diam))) {
+							s.v.vy = -(0.6 * s.v.vy);
+							s.v.vx = 0.8 * s.v.vx;
+						} else if (s.y <= 0 || (s.y + (s.v.vy * (1.0 / 60))) <= 0) {
+							s.v.vy = -(0.6 * s.v.vy);
+							s.v.vx = 0.8 * s.v.vx;
+						} else {
+							s.v.vy = s.v.vy + (s.a.vy * (1.0 / 60));
+						}
+						for (Ball c : shapes) {
+							if (s.collide(c)) {
+
+							}
+						}
+						s.x += (s.v.vx * (1.0 / 60));
+						s.y += (s.v.vy * (1.0 / 60));
+						repaint();
+					}
+					try {
+						Thread.sleep((long) (1000 / 60));
+					} catch (InterruptedException ex) {
+					}
+				}
+			}
+		};
+		thread.start();
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for (Ball s : shapes) {
+			g.setColor(Color.BLUE);
+			g.fillOval((int) s.x, (int) s.y, 20, 20);
+		}
+	}
+
+	public void addBall(int x0, int y0, double v0x, double v0y) {
+		shapes.add(new Ball(x0, y0, v0x, v0y));
+	}
+}

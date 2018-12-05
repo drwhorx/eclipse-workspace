@@ -1,0 +1,145 @@
+public class BlackJack {
+
+	private int playerCard1;
+	private int playerCard2;
+	private int dealerCard;
+
+	/**
+	 * The constructor accepts three STRINGS as parameters, as defined below. You
+	 * should properly store the given parameters into the private instance
+	 * variables. You should card values as INTS. A "valueHelper" class has been
+	 * written and should be used to help convert the value string into an int
+	 */
+	public BlackJack(String playerCard1, String playerCard2, String dealerCard) {
+		int temp1;
+		int temp2;
+		temp1 = valueHelper(playerCard1);
+		temp2 = valueHelper(playerCard2);
+		this.playerCard1 = temp1 >= temp2 ? temp1 : temp2;
+		this.playerCard2 = temp1 >= temp2 ? temp2 : temp1;
+	}
+
+	/**
+	 * Returns true if the player's cards are of the same value This method could be
+	 * used by other methods in your class....
+	 * 
+	 * @return
+	 */
+	public boolean pair() {
+		return playerCard1 == playerCard2 ? true : false;
+	}
+
+	/**
+	 * Returns "true" if the player should hit, according to the chart Otherwise,
+	 * returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean hit() {
+		return (!stand() && !doubleDown() && !split()) ? true : false;
+	}
+
+	public boolean has(int has) {
+		return playerCard1 == has || playerCard2 == has ? true : false;
+	}
+
+	/**
+	 * Returns "true" if the player should stand, according to the chart. Otherwise,
+	 * returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean stand() {
+		if (!pair() && playerCard1 == 11 && ((playerCard2 == 7 && dealerCard >= 7) || playerCard2 >= 8)) {
+			return true;
+		} else if (pair()) {
+			return playerCard1 == 10 ? true
+					: ((playerCard1 == 9 || playerCard1 == 7) && dealerCard >= 7 ? true : false);
+		} else if (playerCard1 + playerCard2 >= 12) {
+			return playerCard1 + playerCard2 <= 16 ? (dealerCard >= 7 ? false : true) : true;
+		} else {
+			return false;
+		}
+	}
+
+	public int sum() {
+		return playerCard1 + playerCard2;
+	}
+
+	/**
+	 * Returns "true" if the player should double-down, according to the chart.
+	 * Otherwise, returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean doubleDown() {
+		if (!pair()) {
+			if (has(11) && playerCard2 <= 7 && dealerCard <= 6) {
+				return true;
+			} else if (sum() >= 9 && sum() <= 11) {
+				return ((sum() == 9 && dealerCard <= 6) || (sum() == 10 && dealerCard <= 9) || sum() == 11) ? true : false;
+			} else {
+				return false;
+			}
+		}
+		return (has(5) && dealerCard <= 9) ? true : false;
+	}
+
+	/**
+	 * Returns "true" if the player should double-down, according to the chart.
+	 * Otherwise, returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean split() {
+		if (pair()) {
+			if (playerCard1 == 10) {
+				return false;
+			} else if (playerCard1 == 5) {
+				return dealerCard >= 10 ? false : true;
+			} else if (playerCard1 == 4) {
+				return false;
+			}
+			return (playerCard1 == 11 || playerCard1 == 8) ? true : (dealerCard >= 7 ? false : true);
+		}
+		return false;
+	}
+
+	/**
+	 * Prints to the console what decision the player should make. This method
+	 * should use the other methods and be fairly short!
+	 */
+	public void play() {
+
+	}
+
+	private int valueHelper(String s) {
+
+		if (s.equalsIgnoreCase("ace"))
+			return 11;
+		else if (s.equalsIgnoreCase("2") || s.equalsIgnoreCase("two"))
+			return 2;
+		else if (s.equalsIgnoreCase("3") || s.equalsIgnoreCase("three"))
+			return 3;
+		else if (s.equalsIgnoreCase("4") || s.equalsIgnoreCase("four"))
+			return 4;
+		else if (s.equalsIgnoreCase("5") || s.equalsIgnoreCase("five"))
+			return 5;
+		else if (s.equalsIgnoreCase("6") || s.equalsIgnoreCase("six"))
+			return 6;
+		else if (s.equalsIgnoreCase("7") || s.equalsIgnoreCase("seven"))
+			return 7;
+		else if (s.equalsIgnoreCase("8") || s.equalsIgnoreCase("eight"))
+			return 8;
+		else if (s.equalsIgnoreCase("9") || s.equalsIgnoreCase("nine"))
+			return 9;
+		else if (s.equalsIgnoreCase("10") || s.equalsIgnoreCase("ten"))
+			return 10;
+		else if (s.equalsIgnoreCase("jack") || s.equalsIgnoreCase("queen") || s.equalsIgnoreCase("king"))
+			return 10;
+		else
+			return -1;
+
+	}
+
+}

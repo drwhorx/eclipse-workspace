@@ -1,0 +1,84 @@
+import java.awt.*;
+import java.util.Formatter;
+import javax.swing.*;
+
+public class Ball extends JPanel {
+	private double x, y;
+	private double vx, vy;
+	private double ay = 400;
+	private int width = 1280;
+	private int height = 720;
+	private int diam = 20;
+
+	/**
+	 * Create a new ball in space with an initial velocity.
+	 * @param x0 X Position
+	 * @param y0 Y Position
+	 * @param v0x Initial X Velocity
+	 * @param v0y Initial Y Velocity
+	 */
+	public Ball(int x0, int y0, double v0x, double v0y) {
+		this.x = x0;
+		this.y = height - y0;
+		this.vx = v0x;
+		this.vy = -v0y;
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.setColor(Color.BLUE);
+		g.fillOval((int)x, (int)y, 20, 20);
+	}
+	
+	/**
+	 * Change the velocity of the ball.
+	 * @param v0x New X Velocity (pixels per second).
+	 * @param v0y New Y Velocity (pixels per second).
+	 */
+	public void throwBall(double v0x, double v0y) {
+		this.vx = v0x;
+		this.vy = v0y;
+	}
+	
+	/**
+	 * Add velocity to the ball.
+	 * @param v0x Added X Velocity (pixels per second).
+	 * @param v0y Added Y Velocity (pixels per second).
+	 */
+	public void hitBall(double v0x, double v0y) {
+		this.vx += v0x;
+		this.vy += v0y;
+	}
+	
+	public double xVal() {
+		return x;
+	}
+	
+	public double yVal() {
+		return y;
+	}
+	
+	public double ay() {
+		return ay;
+	}
+	
+	public double vx() {
+		return vx;
+	}
+	
+	public double vy() {
+		return vy;
+	}
+	
+	public double width() {
+		return width;
+	}
+	
+	public double height() {
+		return height;
+	}
+	
+	public double diam() {
+		return diam;
+	}
+}

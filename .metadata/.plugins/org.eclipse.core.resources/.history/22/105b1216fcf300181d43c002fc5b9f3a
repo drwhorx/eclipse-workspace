@@ -1,0 +1,120 @@
+public class BlackJack {
+
+	private int playerCard1;
+	private int playerCard2;
+	private int dealerCard;
+
+	/**
+	 * The constructor accepts three STRINGS as parameters, as defined below. You
+	 * should properly store the given parameters into the private instance
+	 * variables. You should card values as INTS. A "valueHelper" class has been
+	 * written and should be used to help convert the value string into an int
+	 */
+	public BlackJack(String playerCard1, String playerCard2, String dealerCard) {
+		this.playerCard1 = valueHelper(playerCard1);
+		this.playerCard2 = valueHelper(playerCard2);
+		this.dealerCard = valueHelper(dealerCard);
+	}
+
+	/**
+	 * Returns true if the player's cards are of the same value This method could be
+	 * used by other methods in your class....
+	 * 
+	 * @return
+	 */
+	public boolean pair() {
+		return playerCard1 == playerCard2 ? true : false;
+	}
+
+	/**
+	 * Returns "true" if the player should hit, according to the chart Otherwise,
+	 * returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean hit() {
+
+	}
+
+	/**
+	 * Returns "true" if the player should stand, according to the chart. Otherwise,
+	 * returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean stand() {
+
+	}
+
+	/**
+	 * Returns "true" if the player should double-down, according to the chart.
+	 * Otherwise, returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean doubleDown() {
+
+	}
+
+	/**
+	 * Returns "true" if the player should double-down, according to the chart.
+	 * Otherwise, returns "false"
+	 * 
+	 * @return
+	 */
+	public boolean split() {
+		if (pair()) {
+			if (playerCard1 == 10) {
+				return false;
+			} else if (playerCard1 == 5) {
+				return dealerCard >= 10 ? false : true;
+			} else if (playerCard1 == 4) {
+				return false;
+			} else if (playerCard1 == 11 || playerCard1 == 8) {
+				return true;
+			} else {
+				return dealerCard >= 7 ? false : true;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Prints to the console what decision the player should make. This method
+	 * should use the other methods and be fairly short!
+	 */
+	public void play() {
+
+	}
+
+	private int valueHelper(String s) {
+
+		if (s.equalsIgnoreCase("ace"))
+			return 11;
+		else if (s.equalsIgnoreCase("2") || s.equalsIgnoreCase("two"))
+			return 2;
+		else if (s.equalsIgnoreCase("3") || s.equalsIgnoreCase("three"))
+			return 3;
+		else if (s.equalsIgnoreCase("4") || s.equalsIgnoreCase("four"))
+			return 4;
+		else if (s.equalsIgnoreCase("5") || s.equalsIgnoreCase("five"))
+			return 5;
+		else if (s.equalsIgnoreCase("6") || s.equalsIgnoreCase("six"))
+			return 6;
+		else if (s.equalsIgnoreCase("7") || s.equalsIgnoreCase("seven"))
+			return 7;
+		else if (s.equalsIgnoreCase("8") || s.equalsIgnoreCase("eight"))
+			return 8;
+		else if (s.equalsIgnoreCase("9") || s.equalsIgnoreCase("nine"))
+			return 9;
+		else if (s.equalsIgnoreCase("10") || s.equalsIgnoreCase("ten"))
+			return 10;
+		else if (s.equalsIgnoreCase("jack") || s.equalsIgnoreCase("queen") || s.equalsIgnoreCase("king"))
+			return 10;
+		else
+			return -1;
+
+	}
+
+}
